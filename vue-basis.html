@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 基础</title>
+    <style>
+        .active {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="app">
+    {{message}}
+    <p>{{person}}</p>
+    <p>{{person.name}} 今年 {{person.age}} 岁</p>
+    <ul>
+        <li>books[0]</li>
+        <li>books[1]</li>
+        <li>books[2]</li>
+    </ul>
+    <p v-text="content"></p>
+    <p v-html="content"></p>
+    <input type="button" value="v-on指令" v-on:click="changeSite"/>
+    <input type="button" value="v-on指令简写" @click="changeSite"/>
+    <input type="button" value="v-on双击指令" v-on:dblclick="changeSite"/>
+    <div class="input-num">
+        <button @click="sub">-</button>
+        <span>
+            {{num}}
+        </span>
+        <button @click="add">+</button>
+    </div>
+    <img src="./img/imga.jpeg" width="70" v-show="isShow"/>
+    <img src="./img/imgb.png" width="90" v-show="person.age>=18"/>
+    <button @click="changeIsShow">v-show显示/隐藏</button>
+    <button @click="addAge">增加年龄</button>
+    <p v-if="toggleShow">v-if显示/隐藏</p>
+    <p>当前温度 {{temp}} 度</p>
+    <p v-if="temp>30">热死啦</p>
+    <button @click="changeShow">v-if显示/隐藏</button>
+    <button @click="addTemp">增加温度</button>
+    <img :src="imgUrl" width="90" v-bind:title="imgTitle+'哈哈哈'"/>
+    <p :class="isActive?'active':''" @click="toggleActive">三元表达式激活样式</p>
+    <p :class="{active:isActive}" @click="toggleActive">对象方式激活样式</p>
+    <button @click="prev" v-show="index>0">上一张</button>
+    <img :src="imgArr[index]" width = 200/>
+    <button @click="next" v-show="index<imgArr.length-1">下一张</button>
+    <ul>
+        <li v-for="(item,index) in imgArr" :title="item">{{index + 1}}-{{item}}</li>
+    </ul>
+    <button @click="rpush">列表右侧追加元素</button>
+    <button @click="lpop">列表左侧移除元素</button>
+    <!-- 键修饰符，键别名 -->
+    <input type="text" @keyup.enter="sayHi"/>
+    <input type="text" v-model="message"/>
+    <p>{{message}}</p>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue',
+            person: {
+                name: 'xiaoming',
+                age: 17
+            },
+            books: ['Java 编程思想', '算法导论', 'Vue 入门'],
+            content: '<a href="http://www.baidu.com">百度</a>',
+            num: 0,
+            isShow: true,
+            toggleShow: true,
+            temp: 25,
+            imgUrl: './img/imgb.png',
+            imgTitle: '没事下辈子注意点就行了',
+            isActive: false,
+            imgArr: ['./img/img0.gif',
+                    './img/img1.jpg',
+                    './img/img2.jpg',
+                    './img/img3.jpg',
+                    './img/img4.jpg',
+                    './img/img5.jpg',
+                    './img/img6.gif',
+                    './img/img7.jpg',
+                    './img/img8.png',
+                    './img/img9.jpg'],
+            index: 0
+        },
+        methods: {
+            changeSite:function() {
+                this.content = '<a href="http://www.jd.com">京东</a>'
+            },
+            sub:function() {
+                if (this.num > 0) {
+                    this.num --
+                }
+            },
+            add:function() {
+                if (this.num < 10) {
+                    this.num ++
+                }
+            },
+            changeIsShow:function() {
+                this.isShow = !this.isShow
+            },
+            addAge:function() {
+                this.person.age ++
+            },
+            changeShow:function() {
+                this.toggleShow = !this.toggleShow
+            },
+            addTemp:function() {
+                this.temp ++
+            },
+            toggleActive:function() {
+                this.isActive = !this.isActive
+            },
+            prev:function() {
+                if (this.index > 0) {
+                    this.index --
+                }
+            },
+            next:function() {
+                if (this.index < this.imgArr.length - 1) {
+                    this.index ++
+                }
+            },
+            rpush:function() {
+                this.imgArr.push("🥦")
+            },
+            lpop:function() {
+                this.imgArr.shift()
+            },
+            sayHi:function() {
+                console.log("Hi")
+            }
+        }
+    })
+</script>
+</body>
+</html>
