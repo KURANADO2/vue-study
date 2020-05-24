@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app">
+        <!-- 标题和输入框 -->
+        <header>
+            <h1>TodoList</h1>
+            <input type="text" autofocus="autofocus" placeholder="请输入待办任务" autocomplete="off" v-model="inputValue"
+                @keyup.enter="add()" />
+        </header>
+        <!-- 列表 -->
+        <section>
+            <ul>
+                <li v-for="(item,index) in list">
+                    <div>
+                        <span>{{index+1}}.</span>
+                        <label>{{item}}</label>
+                        <button class="destory" @click="remove(index)">x</button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- 统计和清空 -->
+        <footer v-show="list.length > 0">
+            <span>
+                <strong>{{list.length}} </strong>items left
+            </span>
+            <button @click="clear">Clear</button>
+        </footer>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                list: ['吃饭',
+                    '睡觉',
+                    '打球'
+                ],
+                inputValue: '3'
+            },
+            methods: {
+                add: function () {
+                    this.list.push(this.inputValue)
+                },
+                remove: function (i) {
+                    this.list.splice(i, 1)
+                },
+                clear: function () {
+                    this.list.splice(0)
+                    // or this.list = []
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

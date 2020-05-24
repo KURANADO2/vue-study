@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" src="./css/weather/reset.css">
+    <link rel="stylesheet" src="./css/weather/weather.css">
+</head>
+
+<body>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <div id="app">
+        <div class="search">
+            <div class="search_form">
+                <input type="text" placeholder="请输入城市" v-model="city" @keyup.enter="searchWeather" />
+                <button @click="searchWeather">搜索</button>
+            </div>
+            <div class="hot_city">
+                <a href="javascript:;" @click=changeCity('灵璧')>灵璧</a>
+                <a href="javascript:;" @click=changeCity('北京')>北京</a>
+                <a href="javascript:;" @click=changeCity('上海')>上海</a>
+                <a href="javascript:;" @click=changeCity('深圳')>深圳</a>
+                <a href="javascript:;" @click=changeCity('南京')>南京</a>
+            </div>
+        </div>
+        <div class="result_list">
+            <ul>
+                <li v-for="item in weatherList">
+                    <div class="type">
+                        {{item.type}}
+                    </div>
+                    <div class="date">
+                        {{item.date}}
+                    </div>
+                    <div class="wind">
+                        {{item.fengli}}
+                    </div>
+                    <div class="temp">
+                        <span>{{item.low}} ~ {{item.high}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                city: '',
+                weatherList: []
+            },
+            methods: {
+                searchWeather: function () {
+                    var that = this
+                    axios.get('http://wthrcdn.etouch.cn/weather_mini?city=' + this.city)
+                        .then(function (response) {
+                            that.weatherList = response.data.data.forecast
+                            // console.log(response)
+                            // console.log(that.weatherList)
+                        }).catch(function (err) {
+                            console.log(err)
+                        })
+                },
+                changeCity: function (city) {
+                    this.city = city
+                    this.searchWeather()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

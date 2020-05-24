@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +11,32 @@
             width: 1200;
             min-height: 1800;
         }
+
         .footer {
             text-align: center;
         }
     </style>
 </head>
+
 <body>
-<!-- 开发环境版本，包含了有帮助的命令行警告 -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<div id="app">
-    <div class="header">
-        
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app">
+        <div class="header">
+
+        </div>
+        <div class="content">
+            <img v-for="(item, index) in imgArr" :src="item" width="200">
+        </div>
+        <div class="footer">
+            <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">皖ICP备20007327号-1</a>
+        </div>
     </div>
-    <div class="content">
-        <img v-for="(item, index) in imgArr" :src="item" width="200">
-    </div>
-    <div class="footer">
-        <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">皖ICP备20007327号-1</a>
-    </div>
-</div>
-<script>
-    var app = new Vue({
-        el: '#app',
-        data: {
-            imgArr: ['./img/img0.gif',
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                imgArr: ['./img/img0.gif',
                     './img/img1.jpg',
                     './img/img2.jpg',
                     './img/img3.jpg',
@@ -42,9 +45,52 @@
                     './img/img6.gif',
                     './img/img7.jpg',
                     './img/img8.png',
-                    './img/img9.jpg']
-        }
-    })
-</script>
+                    './img/img9.jpg'],
+                imgList: [
+                    {
+                        path: './img/img0.gif',
+                        title: '我是产品经理'
+                    },
+                    {
+                        path: '/img/img1.jpg',
+                        title: '上吊'
+                    },
+                    {
+                        path: '/img/img2.jpg',
+                        title: '死锁'
+                    },
+                    {
+                        path: '/img/img3.jpg',
+                        title: '吐舌头'
+                    },
+                    {
+                        path: '/img/img4.jpg',
+                        title: '晚安'
+                    },
+                    {
+                        path: '/img/img5.jpg',
+                        title: '碗安'
+                    },
+                    {
+                        path: '/img/img6.gif',
+                        title: '微笑'
+                    },
+                    {
+                        path: '/img/img7.jpg',
+                        title: '我打洗你'
+                    },
+                    {
+                        path: '/img/img8.png',
+                        title: '我来写代码了'
+                    },
+                    {
+                        path: '/img/img9.jpg',
+                        title: '我们是兄弟我怎么会鸽你呢'
+                    }
+                ]
+            }
+        })
+    </script>
 </body>
+
 </html>
